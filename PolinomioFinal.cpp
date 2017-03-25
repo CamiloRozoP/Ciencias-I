@@ -290,12 +290,19 @@ int main(){
    		}while(opcion!='r' && opcion!='R');
 		case 'd':
 		case 'D':
+			polinomio.cargar();
+			Polinomio segundo(n);
+			Polinomio resultado(n);
+	   		segundo.cargar();
 		do{			
 		opcion=menudos();
 	   switch (opcion){
 		  case 's':
 		  case 'S':	cout<<"La SUMA es: \n";
-		            polinomio.cargar();
+		  			//resultado=polinomio+segundo;
+		  			resultado=resultado.sumaPoly(polinomio,segundo);
+		            resultado.mostrar();
+		            
 		            break;
           case 'd':
 		  case 'D':	
