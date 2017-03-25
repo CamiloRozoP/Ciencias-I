@@ -238,20 +238,20 @@ char menudos(){
 int main(){
 	int n,elemento;
 	float x,c;
-	char opcion;
+	char opcionprincipal,opcionuno,opciondos;
 	cout<<"De que grado es el polinomio? ";
 	cin>>n;
 	
 	do{
-	opcion=menuprincipal();
+	opcionprincipal=menuprincipal();
 	Polinomio polinomio(n);
-	switch (opcion){	
+	switch (opcionprincipal){	
 	case 'U':
 	case 'u':
 	do{
-	opcion=menu();
+	opcionuno=menu();
 
-	   switch (opcion){
+	   switch (opcionuno){
 		  case 'c':
 		  case 'C':	cout<<"Ingrese el polinomio: \n";
 		            polinomio.cargar();
@@ -287,7 +287,7 @@ int main(){
 		            break;
 		 
 	   }
-   		}while(opcion!='r' && opcion!='R');
+   		}while(opcionuno!='r' && opcionuno!='R');
 		case 'd':
 		case 'D':
 			polinomio.cargar();
@@ -295,8 +295,8 @@ int main(){
 			Polinomio resultado(n);
 	   		segundo.cargar();
 		do{			
-		opcion=menudos();
-	   switch (opcion){
+		opciondos=menudos();
+	   switch (opciondos){
 		  case 's':
 		  case 'S':	cout<<"La SUMA es: \n";
 		  			//resultado=polinomio+segundo;
@@ -324,10 +324,10 @@ int main(){
 
 		 
 	   }
-   }while(opcion!='r' && opcion!='R');
+   }while(opciondos!='r' && opciondos!='R');
 		
 	}
-	}while(opcion!='t' && opcion!='T');
+	}while(opcionprincipal!='t' && opcionprincipal!='T');
 	system("pause");
 	return 1;
 
