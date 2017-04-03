@@ -17,6 +17,8 @@ class ArbolBinario{
 		int eliminar();
 		int profundidad(Nodo *);
 		void mostrarPreorden(Nodo *);
+		void mostrarPostorden(Nodo *);
+		void mostrarInorden(Nodo *);
 	
 };
 ArbolBinario::ArbolBinario(){
@@ -33,13 +35,14 @@ void ArbolBinario::setRaiz(Nodo *raiz){
 }
 
 Nodo *ArbolBinario::agregar(Nodo *raiz,int elemento){
-	Nodo *p=new Nodo;
+	Nodo *p;
 	if(raiz)
 		if (profundidad(raiz->izq)<profundidad(raiz->der))
 			raiz->izq=agregar(raiz->izq,elemento);
 		else
 			raiz->der=agregar(raiz->der,elemento);
 	else{
+		p=new Nodo;
 		raiz=p;
 		raiz->elemento=elemento;
 		raiz->izq=NULL;
@@ -68,6 +71,26 @@ void ArbolBinario::mostrarPreorden(Nodo *raiz){
 		mostrarPreorden(raiz->der);
 	}
 }
+
+void ArbolBinario::mostrarPostorden(Nodo *raiz){
+	if (raiz){
+		mostrarPreorden(raiz->izq);
+		mostrarPreorden(raiz->der);
+		cout<<raiz->elemento<<" ";
+
+		
+	}
+}
+
+void ArbolBinario::mostrarInorden(Nodo *raiz){
+	if (raiz){
+		mostrarPreorden(raiz->izq);
+		cout<<raiz->elemento<<" ";
+		mostrarPreorden(raiz->der);
+	}
+}
+
+
 int main(){
 	ArbolBinario arbol;
 	Nodo *raiz=arbol.getRaiz();
@@ -79,7 +102,11 @@ int main(){
 	arbol.setRaiz(raiz);
 	raiz=arbol.agregar(raiz,88);
 	arbol.setRaiz(raiz);
-	cout<<"Elementos en el arbol \n";
+	cout<<"Elementos en el arbol Preorden \n";
 	arbol.mostrarPreorden(raiz);
+	cout<<"\n Elementos en el arbol Postorden \n";
+	arbol.mostrarPostorden(raiz);
+	cout<<"\n Elementos en el arbol Inorden \n";
+	arbol.mostrarInorden(raiz);
 }
 
