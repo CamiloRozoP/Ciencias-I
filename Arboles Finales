@@ -1,0 +1,226 @@
+#include <iostream>
+using namespace std;
+struct Nodo{
+	int elemento;
+	Nodo *izq;
+	Nodo * der;
+
+	
+};
+
+class ArbolBinario{
+	private:
+		Nodo *raiz;
+	public:
+		ArbolBinario();
+		Nodo *getRaiz();
+		void setRaiz(Nodo *);
+		Nodo *agregar(Nodo* ,int);
+		int eliminar(Nodo *);
+		Nodo * buscar(Nodo * ,int );
+		int contarnodo(Nodo *);
+		int contarhoja(Nodo *);
+		int profundidad(Nodo *);
+		void mostrarPreorden(Nodo *);
+		void mostrarPostorden(Nodo *);
+		void mostrarInorden(Nodo *);
+	
+};
+ArbolBinario::ArbolBinario(){
+	raiz=NULL;	
+}
+
+Nodo*ArbolBinario::getRaiz(){
+	return raiz;
+}
+
+void ArbolBinario::setRaiz(Nodo *raiz){
+	this->raiz=raiz;
+	
+}
+
+Nodo *ArbolBinario::agregar(Nodo *raiz,int elemento){
+	Nodo *p;
+	if(raiz)
+		if (profundidad(raiz->izq)<profundidad(raiz->der))
+			raiz->izq=agregar(raiz->izq,elemento);
+		else
+			raiz->der=agregar(raiz->der,elemento);
+	else{
+		p=new Nodo;
+		raiz=p;
+		raiz->elemento=elemento;
+		raiz->izq=NULL;
+		raiz->der=NULL;
+		
+	}
+	return raiz;
+}
+
+int ArbolBinario::eliminar(Nodo *raiz){
+	Nodo *p,*q;
+	int eliminado;
+	if(raiz)
+		if (profundidad(raiz->izq)>profundidad(raiz->der)){
+		
+		 	q=raiz;
+			eliminado=eliminar(raiz->izq);}
+		else
+		{
+			q=raiz;
+			eliminado=eliminar(raiz->der);}
+	
+	else{
+	int elemento;
+	q=p->ant;
+	elemento=p->elemento;
+	
+	if (raiz==p)
+		raiz=NULL;
+	else
+		p->ant->siguiente=p->siguiente;
+	raiz=p->ant;
+	delete p;
+	return elemento;
+	}
+	
+}
+
+
+Nodo *ArbolBinario::buscar(Nodo * raiz,int elemento){
+	
+	
+	
+}
+
+
+int ArbolBinario::contarnodo(Nodo *){
+	
+	
+}
+
+int ArbolBinario::contarhoja(Nodo * ){
+	
+	
+}
+
+
+
+
+
+ArbolBinario::profundidad(Nodo *raiz){
+	int profIzq,profDer;
+	if(raiz){
+		profIzq=profundidad(raiz->izq);
+		profDer=profundidad(raiz->der);
+		if(profIzq>profDer)
+			return profIzq+1;
+		return profDer+1;
+	}
+	return 0;	
+}
+void ArbolBinario::mostrarPreorden(Nodo *raiz){
+	if (raiz){
+		cout<<raiz->elemento<<" ";
+		mostrarPreorden(raiz->izq);
+		mostrarPreorden(raiz->der);
+	}
+}
+
+void ArbolBinario::mostrarPostorden(Nodo *raiz){
+	if (raiz){
+		mostrarPreorden(raiz->izq);
+		mostrarPreorden(raiz->der);
+		cout<<raiz->elemento<<" ";
+
+		
+	}
+}
+
+void ArbolBinario::mostrarInorden(Nodo *raiz){
+	if (raiz){
+		mostrarPreorden(raiz->izq);
+		cout<<raiz->elemento<<" ";
+		mostrarPreorden(raiz->der);
+	}
+}
+
+
+char menu(){
+	char opcion;
+	cout<<"\n MENU \n";
+	cout<<"(A)gregar \n";
+	cout<<"(E)liminar \n";
+	cout<<"(M)ostrar \n";
+	cout<<"(B)uscar \n";
+	cout<<"(C)ontar Nodos \n";
+	cout<<"Contar (H)ojas \n";
+	cout<<"(S)alir \n";
+	cout<<"Escoja una opcion: \n";
+	cin>>opcion;
+	return opcion;			
+}
+int main(){
+	ArbolBinario arbol;
+	char opcion;
+	int elemento;
+	Nodo *raiz=arbol.getRaiz();
+/*	raiz=arbol.agregar(raiz,30);
+	arbol.setRaiz(raiz);
+	raiz=arbol.agregar(raiz,70);
+	arbol.setRaiz(raiz);
+	raiz=arbol.agregar(raiz,10);
+	arbol.setRaiz(raiz);
+	raiz=arbol.agregar(raiz,88);
+	arbol.setRaiz(raiz); */
+	
+	do{opcion=menu();
+		switch(opcion){
+			case'a':
+			case'A':
+				cout<<"Digite el elemento: ";
+				cin>>elemento;
+				raiz=arbol.agregar(raiz,elemento);
+				arbol.setRaiz(raiz);
+				break;
+			case 'm':
+			case 'M':
+				cout<<"\n Los elementos en preorden son :  \n";
+				arbol.mostrarPreorden(raiz);
+				cout<<"\n Los elementos en postorden son :  \n";	
+				arbol.mostrarPostorden(raiz);
+				cout<<"\n Los elementos en inorden son :  \n";
+				arbol.mostrarInorden(raiz);
+
+				break;
+			case 'b':
+			case 'B':
+				cout<<"Ingrese el elemento a buscar \n";
+				cin>>elemento;
+					
+				break;
+			case 'e':
+			case 'E':
+				if(raiz)
+				{
+
+					cout<<"Eliminar ultimo elemento.El elemento eliminado es: ";
+					arbol.eliminar(raiz);		
+				}
+				else
+				{
+					cout<<"No hay elementos para eliminar";
+				}
+				break;
+				
+			case 'C':
+			case 'c':	
+			cout<<"La cantidad de nodos es : ";
+			break;
+			
+			case 'H':
+			case 'h':	
+			cout<<"La cantidad de hojas es : ";
+			break;
+		}
+	}while(opcion!='s' && opcion!='S');}
