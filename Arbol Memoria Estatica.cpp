@@ -8,7 +8,7 @@ struct Nodo {
 };
 class Arbolbinario{
 	int numNodos;
-	Nodo arbol[];
+	Nodo *arbol[];
 	public:
 		ArbolBinario();
 		int agregar (int ,int); //recursivo
